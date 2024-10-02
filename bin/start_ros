@@ -25,7 +25,7 @@ xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 # Save container name
 DOCKER_CONTAINER_NAME=${ROS_DOCKER_VERSION}-${ROS_DOCKER_DISTRO}-container
 
-echo $DOCKER_CONTAINER_NAME > "${PROJECT_ROOT}/.ros-container-name"
+echo $DOCKER_CONTAINER_NAME > "${PROJECT_ROOT}/.ros-version"
 
 docker compose up
 

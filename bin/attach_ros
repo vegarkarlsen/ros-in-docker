@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+#vim: filetype=bash
+
+SCRIPT_PATH=$(realpath "$0")
+PROJECT_ROOT=$(dirname "$(dirname "$SCRIPT_PATH")")
+
+if [ -z $SHELL ]; then
+    SHELL="bash"
+fi
+
+DOCKER_CONTAINER_NAME=$(cat ${PROJECT_ROOT}/.ros-version)
+
+docker exec -it $DOCKER_CONTAINER_NAME $SHELL
+
+
+
