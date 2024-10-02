@@ -1,4 +1,8 @@
 #!/usr/bin/bash
+#vim: filetype=bash
+
+SCRIPT_PATH=$(realpath "$0")
+PROJECT_ROOT=$(dirname "$(dirname "$SCRIPT_PATH")")
 
 if [ -z $ROS_DOCKER_DISTRO ]; then
     export ROS_DOCKER_DISTRO="noetic"
@@ -11,16 +15,18 @@ fi
 export UID=$(id -u)
 export GID=$(id -g)
 
-
 # X - Server
 export XSOCK=/tmp/.X11-unix
+
 export XAUTH=/tmp/.ros_in_docker.xauth
 touch $XAUTH
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
+# Save container name
+DOCKER_CONTAINER_NAME=${ROS_DOCKER_VERSION}-${ROS_DOCKER_DISTRO}-container
+
+echo $DOCKER_CONTAINER_NAME > "${PROJECT_ROOT}/.ros-container-name"
+
 docker compose up
 
-# TODO: clean up XAUTH after closing container.
-
-
-
+# TODO: clean up XAUTH and container?
