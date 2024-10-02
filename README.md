@@ -11,13 +11,13 @@ This project aims to provide a simple interface for running different ros- and r
 
 To start the ros container, make sure you are in the ´root´ folder:
 ```bash
-./bin/start_ros
+rid start
 ```
 
 To attach a new shell to the container:
 
 ```bash
-./bin/attach_ros
+rid attach
 ```
 
 ## NB!
