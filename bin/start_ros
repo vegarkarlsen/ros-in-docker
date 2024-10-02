@@ -27,6 +27,6 @@ DOCKER_CONTAINER_NAME=${ROS_DOCKER_VERSION}-${ROS_DOCKER_DISTRO}-container
 
 echo $DOCKER_CONTAINER_NAME > "${PROJECT_ROOT}/.ros-version"
 
-docker compose up
+docker compose -f "${PROJECT_ROOT}/compose.yaml" up
 
 # TODO: clean up XAUTH and container?
