@@ -4,8 +4,13 @@ if [ -z $ROS_DOCKER_DISTRO ]; then
     export ROS_DOCKER_DISTRO="noetic"
 fi
 
+if [ -z $ROS_DOCKER_VERSION ]; then
+    export ROS_DOCKER_VERSION="ros"
+fi
+
 export UID=$(id -u)
 export GID=$(id -g)
+
 
 # X - Server
 export XSOCK=/tmp/.X11-unix

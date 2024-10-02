@@ -1,10 +1,10 @@
 
 services:
   ros:
-    image: ros-${ROS_DOCKER_DISTRO}
-    container_name: ros-${ROS_DOCKER_DISTRO}-container
+    image: ${ROS_DOCKER_VERSION}-${ROS_DOCKER_DISTRO}
+    container_name: ${ROS_DOCKER_VERSION}-${ROS_DOCKER_DISTRO}-container
     build:
-      context: ./images/${ROS_DOCKER_DISTRO}
+      context: ./images/${ROS_DOCKER_VERSION}/${ROS_DOCKER_DISTRO}
       dockerfile: Dockerfile
 
     environment:
@@ -22,11 +22,11 @@ services:
       - /etc/shadow:/etc/shadow:ro
       - /etc/sudoers.d:/etc/sudoers.d:ro
 
+      # TODO: Use custom runtime dir?
       - ${XSOCK}:${XSOCK}:rw # Display x11 socket
-      - ${XAUTH}:${XAUTH}:r # x-server access
+      - ${XAUTH}:${XAUTH}:r # x-server access 
 
       - /home/$USER:/home/$USER
-
 
     working_dir: /home/$USER
 
