@@ -2,9 +2,10 @@
 # vim: filetype=python
 
 import argparse
-# import pathlib
 from pathlib import Path
 import os
+
+# TODO: Add argcomplete - This needs to be pip installed so we need to handle this shomehow
 
 BIN_DIR = Path(__file__).resolve().parent
 
