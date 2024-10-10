@@ -24,7 +24,9 @@ To attach a new shell to the container:
 rid attach
 ```
 
-## NB!
+The distro defaults to `noetic`, if you want another distro you can start it with:
 
-Ros-In-Docker currently only support ros-noetic. Support for ohter ros distros is comming!
+```
+rid start -d humble
+```
 
