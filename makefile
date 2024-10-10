@@ -9,7 +9,6 @@ generate-dockerfile:
 		exit 1; \
 	fi
 	@if [ ! -d "$(IMAGE_FOLDER)/$(ROS_DOCKER_DISTRO)" ]; then \
-		echo "Creating dir"; \
 		mkdir -p $(IMAGE_FOLDER)/$(ROS_DOCKER_DISTRO); \
 	fi
 	@sed -e 's/{{ROS_VERSION}}/$(ROS_DOCKER_DISTRO)/g' $(DOCKERFILE_TEMPLATE) > $(DOCKERFILE_OUTPUT)

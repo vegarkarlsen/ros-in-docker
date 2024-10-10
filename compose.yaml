@@ -1,10 +1,9 @@
-
 services:
   ros:
-    image: ${ROS_DOCKER_VERSION}-${ROS_DOCKER_DISTRO}
-    container_name: ${ROS_DOCKER_VERSION}-${ROS_DOCKER_DISTRO}-container
+    image: ros-${ROS_DOCKER_DISTRO}
+    container_name: ros-${ROS_DOCKER_DISTRO}-container
     build:
-      context: ./images/${ROS_DOCKER_VERSION}/${ROS_DOCKER_DISTRO}
+      context: ./ros-images/${ROS_DOCKER_DISTRO}
       dockerfile: Dockerfile
 
     environment:

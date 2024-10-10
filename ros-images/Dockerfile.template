@@ -1,5 +1,5 @@
 
-FROM osrf/ros:noetic-desktop-full
+FROM osrf/ros:{{ROS_VERSION}}-desktop-full
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -20,11 +20,3 @@ RUN apt-get update && apt-get install -y\
     clang\
     bear\
     zsh
-
-
-
-
-
-
-
-
