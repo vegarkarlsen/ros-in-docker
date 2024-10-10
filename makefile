@@ -13,3 +13,9 @@ generate-dockerfile:
 	fi
 	@sed -e 's/{{ROS_VERSION}}/$(ROS_DOCKER_DISTRO)/g' $(DOCKERFILE_TEMPLATE) > $(DOCKERFILE_OUTPUT)
 	@echo "Generated a ros-$(ROS_DOCKER_DISTRO) dockerfile in $(DOCKERFILE_OUTPUT)"
+
+PREFIX ?= /usr/local
+TARGET_DIR = $(PREFIX)/bin
+
+install:
+	ln -s $(CURDIR)/bin/rid.py $(TARGET_DIR)/rid
