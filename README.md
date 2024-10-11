@@ -16,10 +16,16 @@ make install
 This will install to usr/local. If you want to install to another location you can use `make install PREFIX=/path/to/install`. 
 
 ### Running the container
+To start the container run:
 
-To start the ros container, make sure you are in the ´root´ folder:
 ```bash
 rid start
+```
+
+The distro defaults to `noetic`, if you want another distro you can start it with:
+
+```
+rid start -d humble
 ```
 
 To attach a new shell to the container:
@@ -28,9 +34,5 @@ To attach a new shell to the container:
 rid attach
 ```
 
-The distro defaults to `noetic`, if you want another distro you can start it with:
 
-```
-rid start -d humble
-```
 
