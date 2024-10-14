@@ -33,5 +33,5 @@ echo $DOCKER_CONTAINER_NAME > "${PROJECT_ROOT}/.ros-version"
 
 echo "starting container $DOCKER_CONTAINER_NAME"
 
-docker compose -f "${PROJECT_ROOT}/compose.yaml" up
+docker compose -f "${PROJECT_ROOT}/compose.yaml" up --build
 
