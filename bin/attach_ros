@@ -3,6 +3,7 @@
 
 SCRIPT_PATH=$(realpath "$0")
 PROJECT_ROOT=$(dirname "$(dirname "$SCRIPT_PATH")")
+: "${ROS_DOCKER_USER:=$(id -u)}"
 
 if [ -z $SHELL ]; then
     SHELL="bash"
@@ -10,7 +11,7 @@ fi
 
 DOCKER_CONTAINER_NAME=$(cat ${PROJECT_ROOT}/.ros-version)
 
-docker exec -it $DOCKER_CONTAINER_NAME $SHELL
+docker exec -u $ROS_DOCKER_USER -it $DOCKER_CONTAINER_NAME $SHELL
 
 
 

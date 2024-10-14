@@ -4,6 +4,7 @@
 import argparse
 from pathlib import Path
 import subprocess
+import sys
 import os
 
 # TODO: Add argcomplete - This needs to be pip installed so we need to handle this shomehow
@@ -18,12 +19,19 @@ def run_subbprocess(command, env):
         pass
 
 def main(args):
+
     env = os.environ.copy()
 
+    # Set env - vars
     env["ROS_DOCKER_DISTRO"] = "noetic"
+
     if args.distro:
         env["ROS_DOCKER_DISTRO"] = args.distro
 
+    if args.root:
+        env["ROS_DOCKER_USER"] = "root"
+
+    # Do action
     if args.start:
         run_subbprocess(BIN_DIR / "start_ros", env=env)
         return
@@ -51,6 +59,11 @@ if __name__ == '__main__':
         action="store_true"
     )
     parser.add_argument(
+        "-r,", "--root",
+        help="Set user to attach as root.",
+        action="store_true"
+    )
+    parser.add_argument(
         "-a", "--attach",
         help="Attaches a shell to the ros container.",
         action="store_true"
@@ -61,6 +74,10 @@ if __name__ == '__main__':
         help="Which ros distro to to choose. (default=noetic)",
         required=False
     )
+
+    if len(sys.argv) <= 1:
+        parser.print_help()
+        sys.exit()
 
     args = parser.parse_args()
     main(args)
