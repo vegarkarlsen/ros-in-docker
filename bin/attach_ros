@@ -9,7 +9,7 @@ if [ -z $SHELL ]; then
     SHELL="bash"
 fi
 
-DOCKER_CONTAINER_NAME=$(cat ${PROJECT_ROOT}/.ros-version)
+DOCKER_CONTAINER_NAME=ros-$(cat ${PROJECT_ROOT}/.ros-version)-container
 
 docker exec -u $ROS_DOCKER_USER -it $DOCKER_CONTAINER_NAME $SHELL
 
