@@ -25,11 +25,8 @@ export XAUTH=/tmp/.ros_in_docker.xauth
 touch $XAUTH
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
-# Save container name FIXME: change to version instead of container name?
-DOCKER_CONTAINER_NAME="ros-${ROS_DOCKER_DISTRO}-container"
-
 # TODO: this solution does not allow multiple containers to run simultaneously
-echo $DOCKER_CONTAINER_NAME > "${PROJECT_ROOT}/.ros-version"
+echo $ROS_DOCKER_DISTRO > "${PROJECT_ROOT}/.ros-version"
 
 echo "starting container $DOCKER_CONTAINER_NAME"
 
