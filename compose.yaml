@@ -13,7 +13,6 @@ services:
       - XAUTHORITY=${XAUTH}
       # - ROS_MASTER_URI=http://$MASTER_IP:11311
       # - ROS_IP=$LOCAL_IP
-      - TERM=$TERM
 
     volumes:
       - /etc/group:/etc/group:ro
@@ -22,7 +21,7 @@ services:
       - /etc/sudoers.d:/etc/sudoers.d:ro
 
       # TODO: Use custom runtime dir?
-      - ${XSOCK}:${XSOCK}:rw # Display x11 socket
+      - ${XSOCK}:${XSOCK}:rw # Display-x11 socket
       - ${XAUTH}:${XAUTH}:r # x-server access 
 
       - /home/$USER:/home/$USER
