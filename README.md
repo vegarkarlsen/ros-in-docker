@@ -19,19 +19,19 @@ This will install to usr/local. If you want to install to another location you c
 To start the container run:
 
 ```bash
-rid start
+rid --start
 ```
 
 The distro defaults to `noetic`, if you want another distro you can start it with:
 
 ```
-rid start -d humble
+rid --start --distro humble
 ```
 
 To attach a new shell to the container:
 
 ```bash
-rid attach
+rid --attach
 ```
 
 
