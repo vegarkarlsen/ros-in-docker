@@ -61,7 +61,7 @@ if __name__ == '__main__':
     )
     parser.add_argument(
         "-s", "--start",
-        help="Starts the ros container. Defualt distro is noetic.",
+        help="Starts the ros container. Chooses the last distro that ran if --distro is not spesified.",
         action="store_true"
     )
     parser.add_argument(
