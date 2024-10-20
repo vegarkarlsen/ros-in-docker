@@ -40,6 +40,9 @@ def main(args):
         run_subbprocess(BIN_DIR / "attach_ros", env=env)
         return
 
+    elif args.kill:
+        run_subbprocess(BIN_DIR / "stop_ros", env=env)
+
     elif args.version:
         print(VERSION)
         return
@@ -73,6 +76,11 @@ if __name__ == '__main__':
         type=str,
         help="Which ros distro to to choose. (default=noetic)",
         required=False
+    )
+    parser.add_argument(
+        "-k", "--kill",
+        help="kill the ros container",
+        action="store_true"
     )
 
     if len(sys.argv) <= 1:

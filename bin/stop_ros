@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+#vim: filetype=bash
+
+SCRIPT_PATH=$(realpath "$0")
+PROJECT_ROOT=$(dirname "$(dirname "$SCRIPT_PATH")")
+
+DOCKER_CONTAINER_NAME=$(cat ${PROJECT_ROOT}/.ros-version)
+
+docker kill "ros-$DOCKER_CONTAINER_NAME-container"
+
+#  TODO: clean up
