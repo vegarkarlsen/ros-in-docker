@@ -10,7 +10,7 @@ import os
 # TODO: Add argcomplete - This needs to be pip installed so we need to handle this shomehow
 
 BIN_DIR = Path(__file__).resolve().parent
-VERSION = "v1.0.0"
+VERSION = "v1.1.0"
 
 def run_subbprocess(command, env):
     try:
