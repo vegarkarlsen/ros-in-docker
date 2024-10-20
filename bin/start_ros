@@ -3,11 +3,16 @@
 
 SCRIPT_PATH=$(realpath "$0")
 PROJECT_ROOT=$(dirname "$(dirname "$SCRIPT_PATH")")
+VERSION_FILE=$PROJECT_ROOT/.ros-version
 
 if [ -z $ROS_DOCKER_DISTRO ]; then
-    echo "Error: ROS_DOCKER_DISTRO is not set. Please set it and try again.";
-    exit 1;
-    # export ROS_DOCKER_DISTRO="noetic"
+
+    if [ -f $VERSION_FILE ]; then
+        export ROS_DOCKER_DISTRO=$(cat ${PROJECT_ROOT}/.ros-version)
+    else
+        echo "Error: ROS_DOCKER_DISTRO is not set. Please set it and try again.";
+        exit 1;
+    fi
 fi
 
 if [ ! -f $PROJECT_ROOT/ros-images/$ROS_DOCKER_DISTRO/Dockerfile ]; then
@@ -26,9 +31,9 @@ touch $XAUTH
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
 # TODO: this solution does not allow multiple containers to run simultaneously
-echo $ROS_DOCKER_DISTRO > "${PROJECT_ROOT}/.ros-version"
+# echo $ROS_DOCKER_DISTRO > "${PROJECT_ROOT}/.ros-version"
 
 echo "starting container $DOCKER_CONTAINER_NAME"
 
-docker compose -f "${PROJECT_ROOT}/compose.yaml" up --build
+docker compose -f "${PROJECT_ROOT}/compose.yaml" up --build -d
 

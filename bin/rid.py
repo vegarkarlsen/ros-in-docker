@@ -23,10 +23,13 @@ def main(args):
     env = os.environ.copy()
 
     # Set env - vars
-    env["ROS_DOCKER_DISTRO"] = "noetic"
+    # env["ROS_DOCKER_DISTRO"] = "noetic"
 
     if args.distro:
         env["ROS_DOCKER_DISTRO"] = args.distro
+        with open(BIN_DIR.parent/".ros-version", "w") as f:
+            f.write(args.distro)
+
 
     if args.root:
         env["ROS_DOCKER_USER"] = "root"

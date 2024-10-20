@@ -4,8 +4,9 @@
 SCRIPT_PATH=$(realpath "$0")
 PROJECT_ROOT=$(dirname "$(dirname "$SCRIPT_PATH")")
 
-DOCKER_CONTAINER_NAME=$(cat ${PROJECT_ROOT}/.ros-version)
+DOCKER_CONTAINER_NAME="ros-$(cat ${PROJECT_ROOT}/.ros-version)-container"
 
-docker kill "ros-$DOCKER_CONTAINER_NAME-container"
+docker kill $DOCKER_CONTAINER_NAME
+
 
 #  TODO: clean up
