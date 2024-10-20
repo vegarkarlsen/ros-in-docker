@@ -19,14 +19,10 @@ This will install to usr/local. If you want to install to another location you c
 To start the container run:
 
 ```bash
-rid --start
+rid --start --distro DISTRO
 ```
 
-The distro defaults to `noetic`, if you want another distro you can start it with:
-
-```
-rid --start --distro humble
-```
+Where DISTRO is the desired ros-distro to start. 
 
 To attach a new shell to the container:
 
