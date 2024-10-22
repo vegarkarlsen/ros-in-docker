@@ -19,12 +19,14 @@ export TERM=xterm-256color
 export CC=clang
 export CXX=clang++
 
-
 # See: https://www.reddit.com/r/ROS/comments/15yr1zm/ros_c_coding_setup/
 # export CLANG_BASE="--build-base build_clang --install-base install_clang"
 # export BUILD_ARGS="--symlink-install ${CLANG_BASE} --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
 # alias cb="colcon build ${BUILD_ARGS}"
 
+alias cm="bear catkin_make"
+alias cmr="rm -r devel build compile_commands.json"
 
-# Set Worcking directory
+
+# cd to Worcking directory
 cd $ROS_DOCKER_WORKDIR
