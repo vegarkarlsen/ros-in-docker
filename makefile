@@ -18,4 +18,4 @@ PREFIX ?= /usr/local
 TARGET_DIR = $(PREFIX)/bin
 
 install:
-	ln -s $(CURDIR)/bin/rid.py $(TARGET_DIR)/rid
+	ln -s $(CURDIR)/bin/rid $(TARGET_DIR)/rid
