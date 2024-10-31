@@ -48,10 +48,20 @@ def main(args):
     elif args.version:
         print(VERSION)
         return
+    
+    elif args.last_distro:
+        with open(LAST_VERSION_FILE, "r") as f:
+            print(f.read())
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--last_distro",
+        help="Print the last distro used. (rid -s, and rid -a will automatically choose this distro if --distro is not spesified.)",
+        action="store_true"
+    )
 
     parser.add_argument(
         "-v", "--version",
