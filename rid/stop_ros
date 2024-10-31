@@ -3,9 +3,9 @@
 
 SCRIPT_PATH=$(realpath "$0")
 PROJECT_ROOT=$(dirname "$(dirname "$SCRIPT_PATH")")
-# : ${VERBOSE:=false}
 
-: ${DOCKER_CONTAINER_NAME="ros-$(cat ${PROJECT_ROOT}/.ros-version)-container"}
+source $PROJECT_ROOT/rid/common.bash
+set_container_name
 
 DOCKER_CONTAINER_RUNNING=$(docker ps | grep $DOCKER_CONTAINER_NAME)
 if [ -n "$DOCKER_CONTAINER_RUNNING" ]; then
