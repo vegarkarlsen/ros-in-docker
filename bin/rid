@@ -11,6 +11,7 @@ import os
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 RID_DIR = ROOT_DIR.joinpath("rid")
+LAST_VERSION_FILE = ROOT_DIR.joinpath(".last-ros-version")
 VERSION = "v1.2.0"
 
 def run_subbprocess(command, env):
@@ -25,7 +26,7 @@ def main(args):
 
     if args.distro:
         env["ROS_DOCKER_DISTRO"] = args.distro
-        with open(RID_DIR.parent/".ros-version", "w") as f:
+        with open(LAST_VERSION_FILE, "w") as f:
             f.write(args.distro)
 
     if args.root:

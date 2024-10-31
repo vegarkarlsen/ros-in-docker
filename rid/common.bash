@@ -8,7 +8,7 @@ function set_container_name(){
     if [ -z $ROS_DOCKER_DISTRO ]; then
 
         if [ -f $VERSION_FILE ]; then
-            ROS_DOCKER_DISTRO=$(cat ${PROJECT_ROOT}/.ros-version)
+            ROS_DOCKER_DISTRO=$(cat ${PROJECT_ROOT}/.last-ros-version)
         else
             echo "Error: ROS_DOCKER_DISTRO is not set. Please set it and try again.";
             exit 1;
