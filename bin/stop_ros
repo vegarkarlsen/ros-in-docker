@@ -3,10 +3,20 @@
 
 SCRIPT_PATH=$(realpath "$0")
 PROJECT_ROOT=$(dirname "$(dirname "$SCRIPT_PATH")")
+# : ${VERBOSE:=false}
 
-DOCKER_CONTAINER_NAME="ros-$(cat ${PROJECT_ROOT}/.ros-version)-container"
+: ${DOCKER_CONTAINER_NAME="ros-$(cat ${PROJECT_ROOT}/.ros-version)-container"}
 
-docker kill $DOCKER_CONTAINER_NAME
+DOCKER_CONTAINER_RUNNING=$(docker ps | grep $DOCKER_CONTAINER_NAME)
+if [ -n "$DOCKER_CONTAINER_RUNNING" ]; then
+    echo -n "Killing container: "
+    docker kill $DOCKER_CONTAINER_NAME
+fi
+
+DOCKER_CONTAINER_EXIST=$(docker ps -a | grep $DOCKER_CONTAINER_NAME)
+if [ -n "$DOCKER_CONTAINER_EXIST" ]; then
+    echo -n "Removing container: "
+    docker rm $DOCKER_CONTAINER_NAME
+fi
 
 
-#  TODO: clean up
