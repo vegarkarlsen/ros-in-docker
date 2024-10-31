@@ -70,28 +70,28 @@ if __name__ == '__main__':
     )
     parser.add_argument(
         "-s", "--start",
-        help="Starts the ros container. Chooses the last distro that ran if --distro is not spesified.",
+        help="Starts the ros container. If [ --distro ] is not spesified, [ last_distro ] will be choosen.",
         action="store_true"
     )
     parser.add_argument(
         "-r,", "--root",
-        help="Set user to attach as root.",
+        help="Set user to attach as root. Use in combination with [ --attach ]",
         action="store_true"
     )
     parser.add_argument(
         "-a", "--attach",
-        help="Attaches a shell to the ros container.",
+        help="Attaches a shell to a ros container. If [ --distro ] is not spesificed [ last_distro ] is choosen.",
         action="store_true"
     )
     parser.add_argument(
         "-d" ,"--distro",
         type=str,
-        help="Which ros distro to to choose. (default=noetic)",
+        help="Choose ros distro. Can be used in combination with [ --start ] or [ --attach ]. If ran alone it will update [ last_distro ]",
         required=False
     )
     parser.add_argument(
         "-k", "--kill",
-        help="kill the ros container",
+        help="kill the ros container. If [ --distro ] is not spesificed, [ last_distro ] will be choosen.",
         action="store_true"
     )
 
