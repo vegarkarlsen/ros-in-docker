@@ -9,8 +9,9 @@ import os
 
 # TODO: Add argcomplete - This needs to be pip installed so we need to handle this shomehow
 
-BIN_DIR = Path(__file__).resolve().parent
-VERSION = "v1.1.0"
+ROOT_DIR = Path(__file__).resolve().parent.parent
+RID_DIR = ROOT_DIR.joinpath("rid")
+VERSION = "v1.2.0"
 
 def run_subbprocess(command, env):
     try:
@@ -22,29 +23,25 @@ def main(args):
 
     env = os.environ.copy()
 
-    # Set env - vars
-    # env["ROS_DOCKER_DISTRO"] = "noetic"
-
     if args.distro:
         env["ROS_DOCKER_DISTRO"] = args.distro
-        with open(BIN_DIR.parent/".ros-version", "w") as f:
+        with open(RID_DIR.parent/".ros-version", "w") as f:
             f.write(args.distro)
-
 
     if args.root:
         env["ROS_DOCKER_USER"] = "root"
 
     # Do action
     if args.start:
-        run_subbprocess(BIN_DIR / "start_ros", env=env)
+        run_subbprocess(RID_DIR / "start_ros", env=env)
         return
 
     elif args.attach:
-        run_subbprocess(BIN_DIR / "attach_ros", env=env)
+        run_subbprocess(RID_DIR / "attach_ros", env=env)
         return
 
     elif args.kill:
-        run_subbprocess(BIN_DIR / "stop_ros", env=env)
+        run_subbprocess(RID_DIR / "stop_ros", env=env)
 
     elif args.version:
         print(VERSION)
