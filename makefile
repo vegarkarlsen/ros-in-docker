@@ -1,6 +1,6 @@
 
 IMAGE_FOLDER = ros-images
-DOCKERFILE_TEMPLATE = $(IMAGE_FOLDER)/Dockerfile.template
+DOCKERFILE_TEMPLATE = Dockerfile.template
 DOCKERFILE_OUTPUT = $(IMAGE_FOLDER)/$(ROS_DOCKER_DISTRO)/Dockerfile
 
 generate-dockerfile:
