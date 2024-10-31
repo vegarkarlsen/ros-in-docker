@@ -34,15 +34,16 @@ def main(args):
 
     # Do action
     if args.start:
-        run_subbprocess(RID_DIR / "start_ros", env=env)
+        run_subbprocess(RID_DIR.joinpath("start_ros"), env=env)
         return
 
     elif args.attach:
-        run_subbprocess(RID_DIR / "attach_ros", env=env)
+        run_subbprocess(RID_DIR.joinpath("attach_ros"), env=env)
         return
 
     elif args.kill:
-        run_subbprocess(RID_DIR / "stop_ros", env=env)
+        run_subbprocess(RID_DIR.joinpath("stop_ros"), env=env)
+        return
 
     elif args.version:
         print(VERSION)
