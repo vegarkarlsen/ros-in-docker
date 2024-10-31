@@ -3,21 +3,23 @@
 
 SCRIPT_PATH=$(realpath "$0")
 PROJECT_ROOT=$(dirname "$(dirname "$SCRIPT_PATH")")
-VERSION_FILE=$PROJECT_ROOT/.ros-version
 
-if [ -z $ROS_DOCKER_DISTRO ]; then
+# Sets $DOCKER_CONTAINER_NAME
+source $PROJECT_ROOT/rid/common.bash
+set_container_name
 
-    if [ -f $VERSION_FILE ]; then
-        ROS_DOCKER_DISTRO=$(cat ${PROJECT_ROOT}/.ros-version)
-    else
-        echo "Error: ROS_DOCKER_DISTRO is not set. Please set it and try again.";
-        exit 1;
+# Build if not allready built
+ROS_DOCKER_DIR="$PROJECT_ROOT/ros-images/$ROS_DOCKER_DISTRO"
+DOCKER_IMAGE_EXISTS=$(docker image ls | grep -E "^ros-$ROS_DOCKER_DISTRO")
+if [ -z "$DOCKER_IMAGE_EXISTS" ]; then
+
+    echo "Found no local image for $ROS_DOCKER_DISTRO. Bulding..."
+
+    if [ ! -f  "$ROS_DOCKER_DIR/Dockerfile" ]; then
+        echo "Did not find dockerfile for $ROS_DOCKER_DISTRO locally. Generating...";
+        cd $PROJECT_ROOT && make generate-dockerfile;
     fi
-fi
-
-if [ ! -f $PROJECT_ROOT/ros-images/$ROS_DOCKER_DISTRO/Dockerfile ]; then
-    echo "Did not find dockerfile for $ROS_DOCKER_DISTRO locally.";
-    cd $PROJECT_ROOT && make generate-dockerfile;
+    docker build -t "ros-$ROS_DOCKER_DISTRO" $ROS_DOCKER_DIR
 fi
 
 # User info
@@ -29,16 +31,12 @@ XSOCK=/tmp/.X11-unix
 
 # Display authentication
 XAUTH=/tmp/.ros_in_docker.xauth
-touch $XAUTH
-xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
-
-# TODO: this solution does not allow multiple containers to run simultaneously
-# echo $ROS_DOCKER_DISTRO > "${PROJECT_ROOT}/.ros-version"
-
+if [ ! -f "$XAUTH" ]; then
+    touch $XAUTH
+    xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
+fi
 
 echo -n "Starting container for $ROS_DOCKER_DISTRO with ID: "
-
-# docker compose -f "${PROJECT_ROOT}/compose.yaml" up --build -d
 
 # -e ROS_MASTER_URI=http://$MASTER_IP:11311 \
 # -e ROS_IP=$LOCAL_IP \
