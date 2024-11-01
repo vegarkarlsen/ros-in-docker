@@ -2,3 +2,5 @@
 .last-ros-version
 TODO.md
 ros-images
+venv
+test.py
