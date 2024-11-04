@@ -20,6 +20,11 @@ def run_subbprocess(command, env):
     except KeyboardInterrupt:
         pass
 
+def check_for_update():
+    fetch_printout = subprocess.run(["git", "-C", ROOT_DIR.as_posix(), "fetch"], capture_output=True, text=True)
+    if len(fetch_printout.stdout) > 0:
+        print(f"Update available, You can update RID with: git -C {ROOT_DIR} pull")
+
 def main(args):
 
     env = os.environ.copy()
