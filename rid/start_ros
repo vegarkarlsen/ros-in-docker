@@ -41,6 +41,7 @@ echo -n "Starting container for $ROS_DOCKER_DISTRO with ID: "
 # -e ROS_MASTER_URI=http://$MASTER_IP:11311 \
 # -e ROS_IP=$LOCAL_IP \
 docker run -it -d \
+    --hostname rid-${ROS_DOCKER_DISTRO} \
     --name ros-${ROS_DOCKER_DISTRO}-container \
     -e DISPLAY=$DISPLAY \
     -e LIBGL_ALWAYS_SOFTWARE=1 \
