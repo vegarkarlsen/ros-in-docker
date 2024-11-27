@@ -26,11 +26,11 @@ export CXX=clang++
 
 # ROS2
 alias cb="bear -- colcon build"
-alias cbr="rm -r build install compile_commands.json"
+alias cbr="rm -r build install"
 
 # ROS1
 alias cm="bear catkin_make"
-alias cmr="rm -r devel build compile_commands.json"
+alias cmr="rm -r devel build"
 
 
 # cd to Worcking directory
