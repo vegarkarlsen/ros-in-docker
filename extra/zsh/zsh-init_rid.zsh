@@ -24,6 +24,9 @@ export CXX=clang++
 # export BUILD_ARGS="--symlink-install ${CLANG_BASE} --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
 # alias cb="colcon build ${BUILD_ARGS}"
 
+# NOTE: bear version < 2.4.x -> bear <make>
+#       bear version > 2.4.x -> bear -- <make>
+
 # ROS2
 alias cb="bear -- colcon build"
 alias cbr="rm -r build install"
