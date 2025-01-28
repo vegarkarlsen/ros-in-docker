@@ -58,6 +58,9 @@ def main(args):
         with open(LAST_VERSION_FILE, "r") as f:
             print(f.read())
 
+    elif args.edit:
+        command = [env["EDITOR"], f"{ROOT_DIR}/ros-images/{args.edit}/Dockerfile"]
+        run_subbprocess(command, env=env)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -98,6 +101,12 @@ if __name__ == '__main__':
         "-k", "--kill",
         help="kill the ros container. If [ --distro ] is not spesificed, [ last_distro ] will be choosen.",
         action="store_true"
+    )
+
+    parser.add_argument(
+        "-e", "--edit",
+        help="Quick edit the underlaying docker file that is spesified",
+        required=False
     )
 
     if len(sys.argv) <= 1:
