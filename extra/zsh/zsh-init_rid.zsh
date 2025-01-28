@@ -19,6 +19,14 @@ export TERM=xterm-256color
 export CC=clang
 export CXX=clang++
 
+# Fix ros2 tools autocomplete if we are in ros2 install
+ros2_check="/opt/ros/$ROS_DISTRO/bin/ros2"
+if [[ -e "$ros2_check" ]]; then
+    eval "$(register-python-argcomplete3 ros2)"
+    eval "$(register-python-argcomplete3 colcon)"
+    eval "$(register-python-argcomplete3 colcon_cd)"
+fi
+
 # See: https://www.reddit.com/r/ROS/comments/15yr1zm/ros_c_coding_setup/
 # export CLANG_BASE="--build-base build_clang --install-base install_clang"
 # export BUILD_ARGS="--symlink-install ${CLANG_BASE} --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
