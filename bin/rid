@@ -13,9 +13,17 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 RID_DIR = ROOT_DIR.joinpath("rid")
 LAST_VERSION_FILE = ROOT_DIR.joinpath(".last-ros-version")
 VERSION = "v1.2.0"
+DEBUG = False
+
+def debug(out):
+    if not DEBUG:
+        return
+    print("[DEBUG]", out)
+
 
 def run_subbprocess(command, env):
     try:
+        debug(f"from python, executing command: {command}")
         subprocess.run(command, env=env)
     except KeyboardInterrupt:
         pass
@@ -28,6 +36,7 @@ def check_for_update():
 def main(args):
 
     env = os.environ.copy()
+    extra_args = []
 
     if args.distro:
         env["ROS_DOCKER_DISTRO"] = args.distro
@@ -37,9 +46,12 @@ def main(args):
     if args.root:
         env["ROS_DOCKER_USER"] = "root"
 
-    # Do action
+    if args.extra_args:
+        extra_args = args.extra_args.split(" ")
+
     if args.start:
-        run_subbprocess(RID_DIR.joinpath("start_ros"), env=env)
+        command = [RID_DIR.joinpath("start_ros"), *extra_args]
+        run_subbprocess(command, env=env)
         return
 
     elif args.attach:
@@ -106,6 +118,12 @@ if __name__ == '__main__':
     parser.add_argument(
         "-e", "--edit",
         help="Quick edit the underlaying docker file that is spesified",
+        required=False
+    )
+
+    parser.add_argument(
+        "--extra-args",
+        help="extra arguments to use when interacting with the cotainer.",
         required=False
     )
 
