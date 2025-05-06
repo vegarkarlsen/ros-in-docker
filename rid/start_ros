@@ -19,7 +19,7 @@ if [ -z "$DOCKER_IMAGE_EXISTS" ]; then
         echo "Did not find dockerfile for $ROS_DOCKER_DISTRO locally. Generating...";
         cd $PROJECT_ROOT && make generate-dockerfile;
     fi
-    docker build -t "ros-$ROS_DOCKER_DISTRO" $ROS_DOCKER_DIR
+    # docker build -t "ros-$ROS_DOCKER_DISTRO" "$ROS_DOCKER_DIR"
 fi
 
 # User info
@@ -36,24 +36,33 @@ if [ ! -f "$XAUTH" ]; then
     xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 fi
 
+# Additional arguments
+
+
 echo -n "Starting container for $ROS_DOCKER_DISTRO with ID: "
 
+# Update docker image before starting
+docker build -t "ros-$ROS_DOCKER_DISTRO" "$ROS_DOCKER_DIR"
 # -e ROS_MASTER_URI=http://$MASTER_IP:11311 \
 # -e ROS_IP=$LOCAL_IP \
+# -e LIBGL_ALWAYS_SOFTWARE=1 \
 docker run -it -d \
-    --hostname rid-${ROS_DOCKER_DISTRO} \
-    --name ros-${ROS_DOCKER_DISTRO}-container \
-    -e DISPLAY=$DISPLAY \
-    -e LIBGL_ALWAYS_SOFTWARE=1 \
-    -e XAUTHORITY=${XAUTH} \
-    -v /etc/group:/etc/group:ro \
-    -v /etc/passwd:/etc/passwd:ro \
-    -v /etc/shadow:/etc/shadow:ro \
-    -v /etc/sudoers.d:/etc/sudoers.d:ro \
-    -v ${XSOCK}:${XSOCK}:rw \
-    -v ${XAUTH}:${XAUTH}:rw \
-    -v /home/$USER:/home/$USER \
-    -w /home/$USER \
-    -u ${UID}:${GID} \
-    ros-${ROS_DOCKER_DISTRO}:latest
+--hostname "rid-${ROS_DOCKER_DISTRO}" \
+--name "ros-${ROS_DOCKER_DISTRO}-container" \
+-e "DISPLAY=$DISPLAY" \
+-e XAUTHORITY=${XAUTH} \
+-e ROS_IN_DOCKER_SHELL="${SHELL}" \
+-v /etc/group:/etc/group:ro \
+-v /etc/passwd:/etc/passwd:ro \
+-v /etc/shadow:/etc/shadow:ro \
+-v /etc/sudoers.d:/etc/sudoers.d:ro \
+-v ${XSOCK}:${XSOCK}:rw \
+-v ${XAUTH}:${XAUTH}:rw \
+-v "/home/$USER:/home/$USER" \
+-w "/home/$USER" \
+-u "${UID}:${GID}" \
+-p 9090:9090 \
+--gpus all \
+"$@" \
+"ros-${ROS_DOCKER_DISTRO}:latest"
 
