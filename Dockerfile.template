@@ -11,4 +11,5 @@ RUN apt-get update && apt-get install -y\
     cmake\
     clang\
     bear\
-    zsh
+    zsh\
+    fd-find
